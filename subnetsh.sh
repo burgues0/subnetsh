@@ -2,12 +2,10 @@
 #
 #
 #############
-
 # begin functions #
 
-Help()
-{
-   # hisplay help
+help(){
+   # display help
    echo "Syntax: subnetsh.sh [-g|h|v|V]"
    echo
    echo "options:"
@@ -17,26 +15,36 @@ Help()
    echo
 }
 
+cidr(){
+   #subnet the network from the given ip/cidr
+   echo $OPTARG
+}
+
+netmask(){
+   #subnet the network from the given netmask
+   echo $OPTARG
+}
+
 # end functions #
 # begin getting the options #
 
-while getopts ":h" option; do
+while getopts :hc:m: option; do
    case $option in
       \?) #invalid option
          echo "Invalid argument. Use -h for help"
          exit;;
       h) #display help
-         Help
+         help
          exit;;
       c) #print network information from the ip with the cidr notation
-         IpCIDR
+	 cidr
          exit;;
       m) #print network information from the subnet mask
-         Netmask
+         netmask
          exit;;
    esac
 done
 
 # end getting the options #
 
-echo "Hello $(whoami)!"
+help
